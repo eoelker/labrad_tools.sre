@@ -13,7 +13,6 @@ class Plot(ConductorParameter):
     def initialize(self):
         self.connect_to_labrad()
     
-    @inlineCallbacks
     def update(self):
         if self.value:
             settings = json.loads(self.value)
@@ -24,4 +23,4 @@ class Plot(ConductorParameter):
             run_dir = self.data_dir.format(date_str, exp_name, exp_num)
             settings['data_path'] = run_dir
 
-            yield self.cxn.plotter.plot(json.dumps(settings))
+            self.cxn.plotter.plot(json.dumps(settings))

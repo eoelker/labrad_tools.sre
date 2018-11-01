@@ -10,14 +10,12 @@ class HrDemodFrequency(ConductorParameter):
     dark_offset = 1e6
     ramp_rate = -8
 
-    @inlineCallbacks
     def initialize(self):
         self.connect_to_labrad()
         initial_request =  {'ad9956_0': {'start': self.dark_frequency, 'stop': self.dark_frequency+self.dark_offset, 'rate': self.ramp_rate} }
         self.cxn.rf.linear_ramp(json.dumps(initial_request))
         print 'hr_frequency init\'d with rr: {}'.format(self.ramp_rate)
     
-    @inlineCallbacks
     def update(self):
         if self.value is not None:
 #            min_freq = min([self.value, self.dark_frequency])
