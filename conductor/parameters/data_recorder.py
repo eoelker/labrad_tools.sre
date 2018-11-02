@@ -5,7 +5,7 @@ from conductor.parameter import ConductorParameter
 
 class DataRecorder(ConductorParameter):
     autostart = True
-    data_directory = os.path.join(os.getenv('PROJECT_DATA_PATH'), '')
+    data_directory = os.path.join(os.getenv('PROJECT_DATA_PATH'), 'data')
     data_filename = '{}.conductor.json'
     call_in_thread = False
 

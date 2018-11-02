@@ -78,7 +78,7 @@ class BoardABCD(YeSrDigitalBoard):
         YeSrDigitalChannel(loc=['D', 12], name='N.C. 16', mode='auto', manual_output=False, invert=False),
         YeSrDigitalChannel(loc=['D', 13], name='N.C. 17', mode='auto', manual_output=False, invert=False),
         YeSrDigitalChannel(loc=['D', 14], name='N.C. 18', mode='auto', manual_output=True, invert=False),
-        YeSrDigitalChannel(loc=['D', 15], name='Trigger', mode='manual', manual_output=False, invert=False),
+        YeSrDigitalChannel(loc=['D', 15], name='Trigger', mode='auto', manual_output=False, invert=False),
         ]
         
 Device = BoardABCD

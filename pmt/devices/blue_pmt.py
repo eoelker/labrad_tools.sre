@@ -18,7 +18,7 @@ class BluePMT(Picoscope):
     autostart = False
     picoscope_servername = 'yeelmo_picoscope'
     picoscope_serialnumber = 'DY149/147'
-    picoscope_duration = 5e-3
+    picoscope_duration = 2e-3
     picoscope_sampling_interval = 200e-9
     picoscope_frequency = 50e6
     picoscope_n_capture = 3
@@ -124,9 +124,10 @@ class BluePMT(Picoscope):
         
         #h5py_path = abs_data_path + '.hdf5'
 	h5py_path = self.raw_data_path + '.hdf5' #Overwrite file every time to save HD space
-        with h5py.File(h5py_path) as h5f:
-            for k, v in raw_data.items():
-                h5f.create_dataset(k, data=np.array(v), compression='gzip')
+        h5f = h5py.File(h5py_path, 'w')
+        for k, v in raw_data.items():
+            h5f.create_dataset(k, data=np.array(v), compression='gzip')
+        h5f.close()
         
         """ temporairly store data """
         if len(self.record_names) > self.max_records:
