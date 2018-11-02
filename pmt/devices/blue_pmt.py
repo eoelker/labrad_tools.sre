@@ -19,7 +19,7 @@ class BluePMT(Picoscope):
     picoscope_servername = 'yeelmo_picoscope'
     picoscope_serialnumber = 'DY149/147'
     picoscope_duration = 2e-3
-    picoscope_sampling_interval = 200e-9
+    picoscope_sampling_interval = 20e-9
     picoscope_frequency = 50e6
     picoscope_n_capture = 3
     picoscope_trigger_threshold = 2 # [V]

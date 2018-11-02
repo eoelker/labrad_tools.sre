@@ -8,6 +8,7 @@ from ok_server.proxy import OKProxy
 
 class Sequence(ConductorParameter):
     autostart = True
+    autostart = False
     priority = 10
     value_type = 'list'
     value = ['constant_blues'] * 1
@@ -33,8 +34,8 @@ class Sequence(ConductorParameter):
         fp.OpenBySerial(self.ok_master_interfacename)
         self.fp = fp
 
-        request = {device_name: {} for device_name in self.sequencer_devices}
-        self.sequencer_server.reload_devices(json.dumps(request))
+#        request = {device_name: {} for device_name in self.sequencer_devices}
+#        self.sequencer_server.reload_devices(json.dumps(request))
         self.update()
     
     def update(self):
