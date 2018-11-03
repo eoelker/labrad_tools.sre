@@ -1,26 +1,31 @@
 import json
 import time
+import os
+import traceback
 
 from twisted.internet.defer import inlineCallbacks
 
 from conductor.parameter import ConductorParameter
 
 class Plot(ConductorParameter):
-    data_dir = '/media/j/data/{}/scans/{}#{}/'
+    autostart = True
+    data_directory = "/media/j/data/"
     priority = 1
 
     
-    def initialize(self):
+    def initialize(self,config):
         self.connect_to_labrad()
     
     def update(self):
-        if self.value:
-            settings = json.loads(self.value)
-            date_str = time.strftime('%Y%m%d')
-            exp_name = self.conductor.experiment_name
-            exp_num = self.conductor.experiment_number
-            exp_pt = self.conductor.point_number
-            run_dir = self.data_dir.format(date_str, exp_name, exp_num)
-            settings['data_path'] = run_dir
+        experiment_name = self.server.experiment.get('name')
+        if self.value and (experiment_name is not None):
+	    try:
+                settings = json.loads(self.value)
+	        name_tuple = os.path.split(experiment_name)
+                experiment_directory = os.path.join(self.data_directory, name_tuple[0], 'scans', name_tuple[1])
+                settings['data_path'] = experiment_directory
+            	self.cxn.plotter.plot(json.dumps(settings))
+            except:
+                traceback.print_exc()
 
-            self.cxn.plotter.plot(json.dumps(settings))
+Parameter = Plot

@@ -11,11 +11,14 @@ from conductor.parameter import ConductorParameter
 class NewPlot(ConductorParameter):
     priority = 1
 
-    def initialize(self):
+    autostart = True
+    def initialize(self,config):
         self.connect_to_labrad()
     
     def update(self):
-        data_copy = deepcopy(self.conductor.data)
+        data_copy = self.server._get_parameter_values("{}",True)
         if self.value:
             self.cxn.new_plotter.plot(json.dumps(self.value), 
                     json.dumps(data_copy, default=lambda x: None))
+
+Parameter = NewPlot

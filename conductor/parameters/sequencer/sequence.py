@@ -8,7 +8,6 @@ from ok_server.proxy import OKProxy
 
 class Sequence(ConductorParameter):
     autostart = True
-    autostart = False
     priority = 10
     value_type = 'list'
     value = ['constant_blues'] * 1
